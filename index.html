@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Selamat Ulang Tahun!</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        background: linear-gradient(to right, #ff9a9e, #fad0c4);
+        color: white;
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden;
+      }
+
+      .container {
+        animation: fadeIn 2s ease-in-out;
+        position: relative;
+        z-index: 10;
+        padding: 50px 20px;
+      }
+
+      h1 {
+        font-size: 2.5em;
+        margin-bottom: 10px;
+      }
+
+      p {
+        font-size: 1.2em;
+        margin-top: 10px;
+      }
+
+      button {
+        margin-top: 20px;
+        padding: 10px 20px;
+        font-size: 1em;
+        background-color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        color: #ff6f61;
+        transition: 0.3s;
+        margin-right: 10px;
+      }
+
+      button:hover {
+        background-color: #ff6f61;
+        color: white;
+      }
+
+      .photo-container {
+        margin-top: 50px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 50px;
+        padding-bottom: 100px;
+      }
+
+      .photo {
+        width: 250px;
+        height: 250px;
+        border-radius: 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        opacity: 0;
+        transition: opacity 1s ease-out, transform 1s ease-out;
+        z-index: 999;
+      }
+
+      .photo:nth-child(odd) {
+        transform: translateX(-100%);
+      }
+
+      .photo:nth-child(even) {
+        transform: translateX(100%);
+      }
+
+      .photo.show {
+        opacity: 1;
+        transform: translateX(0);
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      /* BALON */
+      .balloon {
+        position: absolute;
+        width: 50px;
+        height: 70px;
+        background-color: red;
+        border-radius: 50%;
+        bottom: -100px;
+        animation: floatBalloon 5s infinite ease-in-out;
+      }
+
+      .balloon::after {
+        content: "";
+        position: absolute;
+        width: 2px;
+        height: 30px;
+        background-color: white;
+        bottom: -30px;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+
+      @keyframes floatBalloon {
+        0% {
+          transform: translateY(0) rotate(5deg);
+        }
+        50% {
+          transform: translateY(-500px) rotate(-5deg);
+        }
+        100% {
+          transform: translateY(-800px) rotate(5deg);
+        }
+      }
+
+      /* CONFETTI */
+      .confetti {
+        position: absolute;
+        width: 8px;
+        height: 8px;
+        background-color: yellow;
+        top: -10px;
+        animation: fall 3s infinite linear;
+      }
+
+      @keyframes fall {
+        0% {
+          transform: translateY(0) rotate(0deg);
+        }
+        100% {
+          transform: translateY(800px) rotate(360deg);
+        }
+      }
+      .btn-surat {
+        padding: 12px 24px;
+        font-size: 1.2em;
+        font-weight: bold;
+        color: white;
+        background: #ff6f61;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: 0.3s;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        margin-bottom: 50px;
+        margin-top: 0;
+      }
+
+      .btn-surat:hover {
+        background: #ff3b2f;
+        transform: scale(1.05);
+      }
+    </style>
+  </head>
+  <body>
+    <audio id="music" loop>
+      <source src="HBDSound.mp3" type="audio/mp3" />
+    </audio>
+
+    <div class="container">
+      <h1>Selamat Ulang Tahun Udaa!</h1>
+      <button onclick="playMusic()">Music</button>
+      <button onclick="stopMusic()">Mute</button>
+    </div>
+
+    <div class="photo-container" id="photoContainer">
+      <img src="happy.jpg" alt="Foto 1" class="photo" />
+      <img src="happy.jpg" alt="Foto 2" class="photo" />
+      <img src="happy.jpg" alt="Foto 3" class="photo" />
+    </div>
+    <div>
+      <button class="btn-surat" onclick="window.location.href='surat.html'">
+        Open Letter
+      </button>
+    </div>
+
+    <script>
+      function playMusic() {
+        var music = document.getElementById("music");
+        music.play();
+      }
+
+      function stopMusic() {
+        var music = document.getElementById("music");
+        music.pause();
+      }
+
+      window.addEventListener("scroll", function () {
+        var photos = document.querySelectorAll(".photo");
+        photos.forEach(function (photo) {
+          var position = photo.getBoundingClientRect().top;
+          var screenPosition = window.innerHeight / 1.3;
+          if (position < screenPosition) {
+            photo.classList.add("show");
+          }
+        });
+      });
+
+      function createBalloons() {
+        for (let i = 0; i < 10; i++) {
+          let balloon = document.createElement("div");
+          balloon.classList.add("balloon");
+          balloon.style.left = Math.random() * window.innerWidth + "px";
+          balloon.style.backgroundColor = [
+            "red",
+            "blue",
+            "yellow",
+            "green",
+            "purple",
+          ][Math.floor(Math.random() * 5)];
+          balloon.style.animationDuration = Math.random() * 3 + 3 + "s";
+          document.body.appendChild(balloon);
+        }
+      }
+
+      function createConfetti() {
+        for (let i = 0; i < 30; i++) {
+          let confetti = document.createElement("div");
+          confetti.classList.add("confetti");
+          confetti.style.left = Math.random() * window.innerWidth + "px";
+          confetti.style.backgroundColor = [
+            "yellow",
+            "blue",
+            "red",
+            "green",
+            "pink",
+          ][Math.floor(Math.random() * 5)];
+          confetti.style.animationDuration = Math.random() * 2 + 2 + "s";
+          document.body.appendChild(confetti);
+        }
+      }
+
+      createBalloons();
+      createConfetti();
+    </script>
+  </body>
+</html>
