@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>CSS Envelope + Letter (Open/Close on Click)</title>
+    <title>Letter</title>
     <link rel="stylesheet" href="./style.css" />
     <style>
       :root {
@@ -82,34 +82,6 @@
         text-align: left;
         font-size: 10px;
       }
-      .heart {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        width: 15px;
-        height: 15px;
-        background: var(--heart-color);
-        z-index: 4;
-        transform: translate(-50%, -20%) rotate(45deg);
-        transition: transform 0.5s ease-in-out 1s;
-        box-shadow: 0 1px 6px var(--shadow-color);
-        cursor: pointer;
-      }
-      .heart:before,
-      .heart:after {
-        content: "";
-        position: absolute;
-        width: 15px;
-        height: 15px;
-        background-color: var(--heart-color);
-        border-radius: 50%;
-      }
-      .heart:before {
-        top: -7.5px;
-      }
-      .heart:after {
-        right: 7.5px;
-      }
       .flap > .envelope:before {
         transform: rotateX(180deg);
         z-index: 0;
@@ -141,7 +113,6 @@
             </div>
           </div>
         </div>
-        <div class="heart"></div>
       </div>
     </div>
     <script>
